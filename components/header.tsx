@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon, Bars3Icon } from "@heroicons/react/20/solid";
@@ -8,7 +6,7 @@ import SearchBar from "./search-bar";
 
 export default function Header() {
   return (
-    <div className="h-20 px-4 py-4 md:px-10 lg:px-20 flex items-center gap-4 md:gap-10 lg:gap-[100px] bg-[#110606] text-white">
+    <div className="sticky top-0 z-50 h-20 px-4 py-4 md:px-10 lg:px-20 flex items-center gap-4 md:gap-10 lg:gap-[100px] bg-[#110606] text-white">
       <div className="hidden lg:block">
         <Image src="/test_logo.svg" alt="Test Logo" width={170} height={32} />
       </div>
