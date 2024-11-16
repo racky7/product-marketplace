@@ -7,7 +7,7 @@ export default function ProductPage({
   params: { productId: string };
 }) {
   const product = products.find((product) => product.id === params.productId);
-
+  console.log(JSON.stringify(products, null, 2));
   if (!product) {
     return <div>Product not found</div>;
   }
