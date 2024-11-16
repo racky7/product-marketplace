@@ -3,13 +3,14 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./search-bar";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <div className="sticky top-0 z-50 h-20 px-4 py-4 md:px-10 lg:px-20 flex items-center gap-4 md:gap-10 lg:gap-[100px] bg-[#110606] text-white">
-      <div className="hidden lg:block">
+      <Link href={"/all"} className="hidden lg:block">
         <Image src="/test_logo.svg" alt="Test Logo" width={170} height={32} />
-      </div>
+      </Link>
 
       <SearchBar className="flex-1 h-full" />
 

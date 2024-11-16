@@ -2,9 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { CATEGORIES_DATA, Category } from "@/lib/product";
 
 export default function SearchBar({ className }: { className?: string }) {
   const params = useParams();
@@ -16,6 +20,13 @@ export default function SearchBar({ className }: { className?: string }) {
   );
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isCategoryActive, setIsCategoryActive] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    categories?.[0] ?? "all"
+  );
+  const [selectedSubcategory, setSelectedSubcategory] = useState<
+    string | undefined
+  >(categories?.[1] ?? undefined);
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -35,10 +46,14 @@ export default function SearchBar({ className }: { className?: string }) {
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const categoryPath = selectedSubcategory
+      ? `${selectedCategory}/${selectedSubcategory}`
+      : selectedCategory;
+
     if (searchKeyword) {
-      router.push(`/${categories.join("/")}?q=${searchKeyword}`);
+      router.push(`/${categoryPath}/?q=${searchKeyword}`);
     } else {
-      router.push(`/${categories.join("/")}`);
+      router.push(`/${categoryPath}`);
     }
   };
 
@@ -101,7 +116,7 @@ export default function SearchBar({ className }: { className?: string }) {
                   Category
                 </label>
                 <div className="w-full bg-transparent text-[#B3B3B3] text-base capitalize">
-                  {categories[0]}
+                  {selectedCategory}
                 </div>
               </div>
               <button
@@ -125,10 +140,57 @@ export default function SearchBar({ className }: { className?: string }) {
       {isCategoryActive ? (
         <div
           ref={dropdownRef}
-          className="absolute bg-[#443E3E] w-[444px] min-h-[352px] top-20 left-1/3 rounded-[32px] shadow-lg p-4 grid grid-cols-2"
+          className="absolute bg-[#443E3E] w-[444px] min-h-[352px] top-20 left-1/3 rounded-[32px] shadow-lg p-4 grid grid-cols-2 gap-1.5"
         >
-          <div className="col-span-1"></div>
-          <div className="col-span-1"></div>
+          <div className="col-span-2 md:col-span-1">
+            <div className="w-full">
+              {CATEGORIES_DATA.map((category: Category) => {
+                const isSubcategory = category.subcategories?.length !== 0;
+                const isActive = selectedCategory === category.id;
+
+                return (
+                  <button
+                    type="button"
+                    key={category.id}
+                    className={cn(
+                      "flex items-center justify-between p-2 rounded-[100px] w-full",
+                      isActive ? "bg-[#655D5E]" : "bg-transparent"
+                    )}
+                    onClick={() => {
+                      setSelectedCategory(category.id);
+                    }}
+                  >
+                    {category.name}
+                    {isSubcategory ? (
+                      <ChevronRightIcon className="h-4 w-4" />
+                    ) : null}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div className="hidden md:block md:col-span-1">
+            {CATEGORIES_DATA.find(
+              (category: Category) => category.id === selectedCategory
+            )?.subcategories?.map((subcategory: Category) => {
+              const isActive = selectedSubcategory === subcategory.id;
+              return (
+                <button
+                  type="button"
+                  key={subcategory.id}
+                  className={cn(
+                    "flex items-center justify-between p-2 rounded-[100px] w-full",
+                    isActive ? "bg-[#655D5E]" : "bg-transparent"
+                  )}
+                  onClick={() => {
+                    setSelectedSubcategory(subcategory.id);
+                  }}
+                >
+                  {subcategory.name}
+                </button>
+              );
+            })}
+          </div>
         </div>
       ) : null}
     </>

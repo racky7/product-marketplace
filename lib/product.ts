@@ -1,8 +1,19 @@
 import { faker } from "@faker-js/faker";
 import { getRandomElement } from "./utils";
 
-export const categories = [
-  { id: "all", name: "All" },
+type Subcategory = {
+  id: string;
+  name: string;
+};
+
+export type Category = {
+  id: string;
+  name: string;
+  subcategories?: Subcategory[];
+};
+
+export const CATEGORIES_DATA: Category[] = [
+  { id: "all", name: "All", subcategories: [] },
   {
     id: "avatars",
     name: "Avatars",
@@ -11,7 +22,7 @@ export const categories = [
       { id: "robot-and-cyborgs", name: "Robot & Cyborgs" },
       { id: "anthro-and-furry", name: "Anthro & Furry" },
       { id: "others", name: "Others" },
-      { id: "all-in-avatars", name: "All in Avatars" },
+      { id: "", name: "All in Avatars" },
     ],
   },
   {
@@ -21,7 +32,7 @@ export const categories = [
       { id: "clothes", name: "Clothes" },
       { id: "accessories", name: "Accessories" },
       { id: "others", name: "Others" },
-      { id: "all-in-fashion", name: "All in Fashion" },
+      { id: "", name: "All in Fashion" },
     ],
   },
 ];
@@ -41,7 +52,7 @@ function generateProducts(numProducts: number) {
   const products: Product[] = [];
 
   for (let i = 0; i < numProducts; i++) {
-    const category = getRandomElement(categories.slice(1));
+    const category: Category = getRandomElement(CATEGORIES_DATA.slice(1));
     const subcategory = getRandomElement(category.subcategories!);
 
     products.push({
