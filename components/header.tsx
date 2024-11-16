@@ -4,6 +4,7 @@ import { GlobeAltIcon, Bars3Icon } from "@heroicons/react/20/solid";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import SearchBar from "./search-bar";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Header() {
   return (
@@ -18,8 +19,9 @@ export default function Header() {
         />
       </Link>
 
-      <SearchBar className="flex-1 h-full" />
-
+      <Suspense>
+        <SearchBar className="flex-1 h-full" />
+      </Suspense>
       <div className="flex items-center md:gap-6 h-full rounded-full">
         <div className="text-sm hidden md:block">List your creation</div>
         <div className="h-auto">

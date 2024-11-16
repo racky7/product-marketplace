@@ -158,6 +158,9 @@ export default function SearchBar({ className }: { className?: string }) {
                     )}
                     onClick={() => {
                       setSelectedCategory(category.id);
+                      if (!isSubcategory) {
+                        setSelectedSubcategory(undefined);
+                      }
                     }}
                   >
                     {category.name}
