@@ -67,7 +67,7 @@ export default function SearchBar({ className }: { className?: string }) {
           >
             {!isSearchActive && !searchKeyword ? (
               <div
-                className="w-1/2 h-full flex flex-col justify-center gap-0 px-8 py-2.5 cursor-text"
+                className="w-1/2 h-full flex flex-col justify-center gap-0 px-4 md:px-8 lg:py-2.5 cursor-text "
                 onClick={() => {
                   setIsSearchActive(true);
                   setIsCategoryActive(false);

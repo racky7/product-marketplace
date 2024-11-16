@@ -3,16 +3,7 @@
 import ProductCard from "@/components/product-card";
 import { Product } from "@/lib/product";
 
-export default function ProductsSection({
-  products,
-  categoryName,
-  searchKeyword,
-}: {
-  products: Product[];
-  categoryName: string;
-  searchKeyword: string | undefined;
-}) {
-  console.log(categoryName, searchKeyword);
+export default function ProductsSection({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
       {products.map((product, index) => (

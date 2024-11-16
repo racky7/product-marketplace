@@ -9,8 +9,7 @@ export default async function Layout({
     <div className="w-full min-h-full flex flex-col">
       <Header />
       <div className="w-full bg-[#110606] flex-1 px-4 py-4 md:px-10 lg:px-20">
-        <div className="w-full h-full space-y-6">{children}</div>
-        <div className="w-full h-8"></div>
+        {children}
       </div>
     </div>
   );

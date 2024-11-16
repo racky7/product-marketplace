@@ -1,3 +1,4 @@
+import CategoryBreadcrumb from "@/components/category-breadcrumb";
 import ProductsSection from "@/components/products-section";
 import { products } from "@/lib/product";
 
@@ -25,21 +26,13 @@ export default function ParentCategoryPage({
   });
 
   return (
-    <>
-      <div className="flex text-white text-base md:text-2xl font-bold capitalize">
-        <div>{parentCategory}</div>
-        {subCategory ? (
-          <>
-            <span>{" > "}</span>
-            <div>{subCategory}</div>
-          </>
-        ) : null}
-      </div>
-      <ProductsSection
-        products={filteredProducts}
-        categoryName={parentCategory}
-        searchKeyword={searchKeyword}
+    <div className="w-full h-full space-y-6">
+      <CategoryBreadcrumb
+        parentCategory={parentCategory}
+        subCategory={subCategory}
       />
-    </>
+      <ProductsSection products={filteredProducts} />
+      <div className="w-full h-8"></div>
+    </div>
   );
 }
